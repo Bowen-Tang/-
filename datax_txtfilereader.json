@@ -1,0 +1,204 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 8,
+        "batchSize": 5000
+      }
+    },
+    "content": [
+      {
+        "reader": {
+          "name": "txtfilereader",
+          "parameter": {
+            "path": [
+"/mnt/nfs/dump1/test.tpch_q10.000000000.csv",
+"/mnt/nfs/dump1/test.tpch_q10.000000001.csv",
+"/mnt/nfs/dump1/test.tpch_q10.000000002.csv",
+"/mnt/nfs/dump1/test.tpch_q10.000000003.csv",
+"/mnt/nfs/dump1/test.tpch_q10.000000004.csv",
+"/mnt/nfs/dump1/test.tpch_q10.000000005.csv",
+"/mnt/nfs/dump1/test.tpch_q10.000000006.csv",
+"/mnt/nfs/dump1/test.tpch_q10.000000007.csv",
+"/mnt/nfs/dump1/test.tpch_q10.000000008.csv",
+"/mnt/nfs/dump1/test.tpch_q10.000000009.csv",
+"/mnt/nfs/dump1/test.tpch_q10.000000010.csv",
+"/mnt/nfs/dump1/test.tpch_q10.000000011.csv"
+            ],
+            "encoding": "UTF-8",
+            "column": [
+              {
+                "index": 0,
+                "type": "Long"
+              },
+              {
+                "index": 1,
+                "type": "String"
+              },
+              {
+                "index": 2,
+                "type": "Double"
+              },
+              {
+                "index": 3,
+                "type": "Double"
+              },
+              {
+                "index": 4,
+                "type": "String"
+              },
+              {
+                "index": 5,
+                "type": "String"
+              },
+              {
+                "index": 6,
+                "type": "String"
+              },
+              {
+                "index": 7,
+                "type": "String"
+              },
+              {
+                "index": 8,
+                "type": "String"
+              },
+              {
+                "index": 9,
+                "type": "Long"
+              },
+              {
+                "index": 10,
+                "type": "Long"
+              },
+              {
+                "index": 11,
+                "type": "Long"
+              },
+              {
+                "index": 12,
+                "type": "Double"
+              },
+              {
+                "index": 13,
+                "type": "Double"
+              },
+              {
+                "index": 14,
+                "type": "String"
+              },
+              {
+                "index": 15,
+                "type": "Date"
+              },
+              {
+                "index": 16,
+                "type": "Date"
+              },
+              {
+                "index": 17,
+                "type": "Date"
+              },
+              {
+                "index": 18,
+                "type": "String"
+              },
+              {
+                "index": 19,
+                "type": "String"
+              },
+              {
+                "index": 20,
+                "type": "String"
+              },
+              {
+                "index": 21,
+                "type": "Double"
+              },
+              {
+                "index": 22,
+                "type": "Date"
+              },
+              {
+                "index": 23,
+                "type": "String"
+              },
+              {
+                "index": 24,
+                "type": "String"
+              },
+              {
+                "index": 25,
+                "type": "Long"
+              },
+              {
+                "index": 26,
+                "type": "String"
+              },
+              {
+                "index": 27,
+                "type": "String"
+              },
+              {
+                "index": 28,
+                "type": "String"
+              }
+            ],
+            "fieldDelimiter": ","
+          }
+        },
+        "writer": {
+          "name": "mysqlwriter",
+          "parameter": {
+            "column": [
+              "c_custkey",
+              "c_name",
+              "revenue",
+              "c_acctbal",
+              "n_name",
+              "c_address",
+              "c_phone",
+              "c_comment",
+              "c_mktsegment",
+              "l_partkey",
+              "l_suppkey",
+              "l_linenumber",
+              "l_quantity",
+              "l_tax",
+              "l_linestatus",
+              "l_shipdate",
+              "l_commitdate",
+              "l_receiptdate",
+              "l_shipinstruct",
+              "l_shipmode",
+              "o_orderstatus",
+              "o_totalprice",
+              "o_orderdate",
+              "o_orderpriority",
+              "o_clerk",
+              "o_shippriority",
+              "etl_host",
+              "etl_user",
+              "etl_date"
+            ],
+            "password": "123456",
+            "username": "t1",
+            "writeMode": "insert",
+            "batchSize": 5000,
+            "preSql": [
+              "truncate table test.tpch_q10"
+            ],
+            "connection": [
+              {
+                "table": [
+                  "test.tpch_q10"
+                ],
+                "jdbcUrl": "jdbc:mysql://10.2.103.156:3390/test?rewriteBatchedStatements=true&useConfigs=maxPerformance"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}
