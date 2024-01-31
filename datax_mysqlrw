@@ -1,0 +1,89 @@
+{
+  "job": {
+          "setting": {
+            "speed": {
+                "channel":5
+            }
+        },
+    "content": [{
+      "reader": {
+        "name": "mysqlreader",
+        "parameter": {
+          "password": "123456",
+          "username": "t1",
+          "connection": [{
+            "jdbcUrl": ["jdbc:mysql://10.2.103.227:14000/tpch"],
+            "querySql": ["select /*+  read_from_storage(tiflash[customer,orders,lineitem,nation]) */
+        c_custkey,
+        c_name,
+        sum(l_extendedprice * (1 - l_discount)) as revenue,
+        c_acctbal,
+        n_name,
+        c_address,
+        c_phone,
+        c_comment,
+        min(C_MKTSEGMENT),
+        min(L_PARTKEY),
+        min(L_SUPPKEY),
+        min(L_LINENUMBER),
+        min(L_QUANTITY),
+        max(L_TAX),
+        max(L_LINESTATUS),
+        min(L_SHIPDATE),
+        min(L_COMMITDATE),
+        min(L_RECEIPTDATE),
+        min(L_SHIPINSTRUCT),
+        max(L_SHIPMODE),
+        max(O_ORDERSTATUS),
+        min(O_TOTALPRICE),
+        min(O_ORDERDATE),
+        max(O_ORDERPRIORITY),
+        min(O_CLERK),
+        max(O_SHIPPRIORITY),
+        @@hostname,
+        current_user(),
+        current_date()
+from
+        tpch.customer,
+        tpch.orders,
+        tpch.lineitem,
+        tpch.nation
+where
+        c_custkey = o_custkey
+        and l_orderkey = o_orderkey
+        and o_orderdate >= date '1993-10-01'
+        and o_orderdate < date '1994-10-01'
+        and l_returnflag = 'R'
+        and c_nationkey = n_nationkey
+group by
+        c_custkey,
+        c_name,
+        c_acctbal,
+        c_phone,
+        n_name,
+        c_address,
+        c_comment
+order by
+        c_custkey"]
+          }]
+        }
+      },
+      "writer": {
+        "name": "mysqlwriter",
+        "parameter": {
+          "column": ['*'],
+          "password": "123456",
+          "username": "t1",
+          "writeMode": "insert",
+          "batchSize": 5000,
+             "preSql": [
+              "truncate table test.tpch_10"],
+          "connection": [{
+            "table": ["test.tpch_q10"],
+            "jdbcUrl": "jdbc:mysql://10.2.103.227:14000/test?rewriteBatchedStatements=true&useServerPrepStmts=true&prepStmtCacheSqlLimit=100000000&useConfigs=maxPerformance"
+          }]
+        }
+      }
+    }]
+  }
+}
